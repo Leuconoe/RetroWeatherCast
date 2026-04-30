@@ -5,7 +5,12 @@
 .playwright-mcp/
 
 # Test artifacts
-*.png
+/test-*.png
+/ws4k-*.png
+/final-screenshot.png
+/live-*.png
+/gh-pages-check.png
+/legacy/previous-static-implementation/*.png
 test-*.js
 test-*.png
 ws4k-*.png
