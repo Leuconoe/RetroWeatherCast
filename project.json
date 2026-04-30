@@ -1,0 +1,63 @@
+{
+  "description": "Retro Weather Cast — WeatherSTAR 4000 style rotating forecast display with 90s Weather Channel aesthetic",
+  "file": "index.html",
+  "type": "web",
+  "visibility": "public",
+  "general": {
+    "properties": {
+      "city": {
+        "text": "City Name",
+        "type": "text",
+        "value": "Seoul",
+        "order": 0
+      },
+      "apiKey": {
+        "text": "OpenWeatherMap API Key",
+        "type": "text",
+        "value": "",
+        "order": 1
+      },
+      "temperatureUnit": {
+        "text": "Temperature Unit",
+        "type": "combo",
+        "value": "celsius",
+        "options": "celsius\nfahrenheit",
+        "order": 2
+      },
+      "distanceUnit": {
+        "text": "Distance Unit",
+        "type": "combo",
+        "value": "metric",
+        "options": "metric\nimperial",
+        "order": 3
+      },
+      "cycleSpeed": {
+        "text": "Display Cycle Speed (seconds)",
+        "type": "slider",
+        "min": 5,
+        "max": 30,
+        "value": 10,
+        "order": 4
+      },
+      "updateInterval": {
+        "text": "Data Update Interval (minutes)",
+        "type": "slider",
+        "min": 5,
+        "max": 60,
+        "value": 15,
+        "order": 5
+      },
+      "schemecolor": {
+        "text": "ui_browse_properties_scheme_color",
+        "type": "color",
+        "value": "0 0 30",
+        "order": 6
+      }
+    },
+    "supportsaudioprocessing": false
+  }
+}
+    },
+    "supportsaudioprocessing": false
+  }
+}

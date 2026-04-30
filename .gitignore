@@ -1,0 +1,20 @@
+# Environment
+.env
+
+# Playwright
+.playwright-mcp/
+
+# Test artifacts
+*.png
+test-*.js
+test-*.png
+ws4k-*.png
+final-screenshot.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

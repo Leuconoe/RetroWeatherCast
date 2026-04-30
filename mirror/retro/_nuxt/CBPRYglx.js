@@ -1,0 +1,1 @@
+import{_ as o}from"./BeBXOIhR.js";import{h as e,l as n,c as s,o as r}from"./DMqpnhGb.js";import"./CZtHo9sS.js";import"./COdFkdie.js";import"./CGLZVcrh.js";import"./Cr6VlCAu.js";const g=e({__name:"settings",setup(_){return n("settings",()=>!0),(p,m)=>{const t=o;return r(),s(t)}}});export{g as default};

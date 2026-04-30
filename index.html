@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Weather Cast — WeatherSTAR 4000</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!--
+    Retro Weather Cast — WeatherSTAR 4000 Authentic Style
+    Inspired by: https://twcclassics.com/information/weatherstar-4000-flavors.html
+    Reference: TWC Classics archive screenshots (1990-2002)
+  -->
+
+  <div class="ws4k-container">
+    <!-- Orange Header Bar (logo + title + clock sit ON this) -->
+    <header class="ws4k-header">
+      <div class="ws4k-logo">
+        <div class="logo-box">
+          <span class="logo-line1">The Weather</span>
+          <span class="logo-line2">Channel</span>
+        </div>
+        <div class="ws4k-title-group">
+          <span class="ws4k-display-title" id="displayTitle">Loading...</span>
+          <span class="ws4k-city-name" id="cityName">--</span>
+        </div>
+      </div>
+      <div class="ws4k-clock" id="wsClock">
+        <div class="clock-time">--:--</div>
+        <div class="clock-date">--- --- --</div>
+      </div>
+    </header>
+
+    <!-- Main Panel (dark blue content area) -->
+    <main class="ws4k-panel">
+      <!-- Display Area -->
+      <div class="ws4k-display-area" id="displayArea">
+        <!-- Content injected by displays.js -->
+      </div>
+    </main>
+
+    <!-- Bottom Scrolling Ticker -->
+    <footer class="ws4k-ticker">
+      <div class="ws4k-ticker-inner" id="tickerContent">
+        <span>Retro Weather Cast — WeatherSTAR 4000 Style Forecast</span>
+      </div>
+    </footer>
+
+    <!-- Navigation Controls (minimal, bottom-right) -->
+    <div class="ws4k-controls" id="wsControls">
+      <button class="ws-btn" id="btnPrev" title="Previous Display">&#9664;</button>
+      <button class="ws-btn" id="btnPlayPause" title="Play/Pause">&#9654;</button>
+      <button class="ws-btn" id="btnNext" title="Next Display">&#9654;</button>
+      <button class="ws-btn" id="btnRefresh" title="Refresh Data">&#8635;</button>
+    </div>
+  </div>
+
+  <!-- CRT / Noise / Chromatic Aberration Overlay -->
+  <div class="crt-overlay"></div>
+  <div class="crt-noise"></div>
+
+  <!-- Background Music (WeatherSTAR 4000 ambient style) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/sounds/Windswept.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading Your Weather...</div>
+    </div>
+  </div>
+
+  <!-- Error Overlay -->
+  <div class="error-overlay hidden" id="errorOverlay">
+    <div class="error-box">
+      <div class="error-icon">&#9888;</div>
+      <div class="error-text" id="errorText"></div>
+    </div>
+  </div>
+
+  <!-- Scripts: config.js → wallpaper.js → weather.js → mock-data.js → displays.js → app.js -->
+  <script src="js/config.js"></script>
+  <script src="js/wallpaper.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/mock-data.js"></script>
+  <script src="js/displays.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

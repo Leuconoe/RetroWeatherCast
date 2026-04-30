@@ -1,0 +1,1 @@
+function s(o,e=[-84.39,33.75]){if(!o)return e;const t=o.split(","),n=Number(t[0]);return[Number(t[1]),n]}function a(o,e){const[t,n]=o,c=e/69,r=e/(69*Math.cos(n*Math.PI/180));return[[t-r,n-c],[t+r,n+c]]}export{a as c,s as g};

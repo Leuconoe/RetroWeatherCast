@@ -1,0 +1,6 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 202 202">
+<g id="moon-first-quarter" stroke="#000000" stroke-width="1" stroke-linejoin="round">
+	<path fill="#000000" d="M100,1 A99,99 0 0,0 100,199 L100,1 Z"/>
+	<path fill="#D3D3D3" d="M100,1 A99,99 0 0,1 100,199 L100,1 Z"/>
+</g>
+</svg>

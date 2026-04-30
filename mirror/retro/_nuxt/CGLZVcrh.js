@@ -1,0 +1,1 @@
+import{u as n}from"./COdFkdie.js";import{e as a,f as i}from"./DMqpnhGb.js";function c(){const s=n(),t=a("unitOfMeasurement",{default:()=>"e",maxAge:3600*24*365,domain:s,path:"/"}),o=i({get:()=>t.value==="m"?"m":"e",set:e=>{t.value=e}});function u(e){o.value=e}return{units:o,setUnits:u}}export{c as u};

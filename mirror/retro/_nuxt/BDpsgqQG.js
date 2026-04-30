@@ -1,0 +1,1 @@
+import{_ as n}from"./BUF0snPY.js";import{h as o,o as s,c,w as r,a as _,t}from"./DMqpnhGb.js";const p={class:"uppercase"},i=o({__name:"LocalForecast",props:{narrative:{}},setup(e){return(m,l)=>{const a=n;return s(),c(a,null,{default:r(()=>[_("p",p,t(e.narrative.name)+"..."+t(e.narrative.text),1)]),_:1})}}}),f=Object.assign(i,{__name:"ScreensLocalForecast"});export{f as _};

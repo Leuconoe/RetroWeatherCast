@@ -1,0 +1,1 @@
+import{_ as t,o,d as s,r as n}from"./DMqpnhGb.js";const c={},r={class:"disabled:opacity-50 [&>svg]:size-[1.5em] [&>svg]:fill-current cursor-pointer"};function _(e,a){return o(),s("button",r,[n(e.$slots,"default")])}const l=Object.assign(t(c,[["render",_]]),{__name:"IconButton"});export{l as _};

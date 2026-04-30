@@ -1,0 +1,1016 @@
+/* ============================================================
+   Retro Weather Cast — WeatherSTAR 4000 Authentic Style
+   Based on: TWC Classics archive screenshots (1990-2002)
+   Reference: https://twcclassics.com/information/weatherstar-4000-flavors.html
+   ============================================================ */
+
+:root {
+  --ws-panel-bg: #10255f;
+  --ws-panel-mid: #1e3f95;
+  --ws-panel-highlight: #4c72d9;
+  --ws-panel-dark: #0a1a4a;
+  --ws-frame-left: #a82d1c;
+  --ws-frame-right: #d55b17;
+  --ws-frame-mid: #f08a1f;
+  --ws-yellow: #e3a12d;
+  --ws-yellow-bright: #f0b13a;
+  --ws-white: #f2f2f2;
+  --ws-shadow: #1a1a1a;
+  --ws-logo-blue: #2441b8;
+  --ws-logo-light: #5f86ff;
+  --ws-ticker-bg: #0e236e;
+  --ws-ticker-sep: #89a5ff;
+  --ws-table-alt: #0d1f55;
+  --ws-cyan: #2fc0d0;
+  --ws-lightning: #f2d347;
+  --font-ws: 'VT323', 'Courier New', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100vw; height: 100vh; overflow: hidden;
+  background: var(--ws-panel-dark);
+  color: var(--ws-white);
+  font-family: var(--font-ws);
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+/* === Full-screen container === */
+.ws4k-container {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  position: relative;
+  background:
+    linear-gradient(90deg,
+      var(--ws-frame-left) 0%,
+      var(--ws-frame-mid) 2vw,
+      transparent 4vw,
+      transparent calc(100% - 4vw),
+      var(--ws-frame-mid) calc(100% - 2vw),
+      var(--ws-frame-right) 100%
+    );
+}
+
+/* === Orange Header Bar === */
+.ws4k-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3vh 1vw 0.2vh 1vw;
+  flex-shrink: 0;
+  min-height: 5vh;
+  max-height: 7vh;
+  background: linear-gradient(90deg,
+    rgba(168,45,28,0.7) 0%,
+    rgba(240,138,31,0.5) 10%,
+    rgba(240,138,31,0.2) 30%,
+    transparent 45%,
+    transparent 55%,
+    rgba(240,138,31,0.2) 70%,
+    rgba(240,138,31,0.5) 90%,
+    rgba(213,91,23,0.7) 100%
+  );
+}
+
+.ws4k-logo {
+  display: flex; align-items: center; gap: 0.8vw;
+}
+
+.logo-box {
+  background: linear-gradient(135deg, var(--ws-logo-blue), var(--ws-logo-light));
+  border: 2px solid var(--ws-white);
+  border-radius: 6px;
+  padding: 0.2vh 0.4vw;
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 6vw;
+  box-shadow: 0 0 6px rgba(95,134,255,0.5);
+}
+
+.logo-box .logo-line1 {
+  font-size: clamp(0.35rem, 0.7vw, 0.6rem);
+  color: var(--ws-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.logo-box .logo-line2 {
+  font-size: clamp(0.45rem, 0.9vw, 0.75rem);
+  color: var(--ws-white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.ws4k-title-group {
+  display: flex; flex-direction: column; gap: 0;
+}
+
+.ws4k-display-title {
+  font-size: clamp(1.5rem, 3vw, 2.8rem);
+  color: var(--ws-yellow-bright);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.ws4k-city-name {
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+  color: var(--ws-yellow);
+  line-height: 1.1;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.ws4k-clock {
+  text-align: right;
+  line-height: 1.3;
+}
+
+.ws4k-clock .clock-time {
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  color: var(--ws-white);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.ws4k-clock .clock-date {
+  font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+  color: var(--ws-white);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* === Main Panel === */
+.ws4k-panel {
+  flex: 1;
+  margin: 0;
+  background: linear-gradient(180deg, var(--ws-panel-mid) 0%, var(--ws-panel-bg) 40%, var(--ws-panel-dark) 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 0 15px rgba(76,114,217,0.3),
+    inset 0 0 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Display Area — fills 90% of available space === */
+.ws4k-display-area {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  padding: 0.5vh 0.5vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.ws4k-display-area .display-screen {
+  animation: displayFadeIn 0.3s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes displayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* === Bottom Ticker === */
+.ws4k-ticker {
+  background: var(--ws-ticker-bg);
+  border-top: 2px solid var(--ws-ticker-sep);
+  overflow: hidden;
+  height: 3vh;
+  min-height: 20px;
+  flex-shrink: 0;
+}
+
+.ws4k-ticker-inner {
+  display: inline-block;
+  white-space: nowrap;
+  animation: tickerScroll 25s linear infinite;
+  color: var(--ws-white);
+  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  padding-right: 100vw;
+  line-height: 3vh;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* === Controls === */
+.ws4k-controls {
+  position: absolute;
+  bottom: 5vh;
+  right: 9vw;
+  display: flex;
+  gap: 0.3rem;
+  z-index: 100;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+.ws4k-controls:hover { opacity: 1; }
+
+.ws-btn {
+  background: rgba(16,37,95,0.9);
+  color: var(--ws-white);
+  border: 1px solid var(--ws-panel-highlight);
+  border-radius: 2px;
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-ws);
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px var(--ws-shadow);
+}
+
+.ws-btn:hover {
+  background: var(--ws-yellow);
+  color: var(--ws-panel-dark);
+}
+
+/* ============================================================
+   DISPLAY: Current Conditions — fills panel
+   ============================================================ */
+.display-current {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.current-main-row {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5vw;
+  flex: 1;
+  padding: 0;
+}
+
+.current-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 16vw;
+  justify-content: space-between;
+  padding: 0.5vh 0;
+}
+
+.current-temp {
+  font-size: clamp(8rem, 18vw, 18rem);
+  color: var(--ws-white);
+  line-height: 0.7;
+  text-shadow: 5px 5px 15px var(--ws-shadow);
+}
+
+.current-condition {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--ws-white);
+  margin-top: 0;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.current-icon {
+  width: clamp(180px, 32vw, 400px);
+  height: clamp(180px, 32vw, 400px);
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-icon svg { width: 100%; height: 100%; }
+
+.current-wind {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  color: var(--ws-white);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  margin-top: auto;
+  padding-bottom: 0.5vh;
+}
+
+.current-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5vh 0;
+  justify-content: space-between;
+}
+
+.current-city-label {
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  color: var(--ws-white);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  margin-bottom: 0;
+}
+
+.current-detail-row {
+  display: flex;
+  justify-content: flex-start;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 1.3;
+  flex: 1;
+  align-items: center;
+}
+
+.current-detail-label {
+  color: var(--ws-white);
+  min-width: 12vw;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.current-detail-value {
+  color: var(--ws-white);
+  text-align: right;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* ============================================================
+   DISPLAY: Table-based screens — fills panel
+   ============================================================ */
+.ws-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+}
+
+.ws-table th {
+  color: var(--ws-yellow-bright);
+  text-align: left;
+  padding: 0.4vh 0.4vw;
+  border-bottom: 2px solid var(--ws-yellow);
+  font-size: clamp(1rem, 1.8vw, 1.6rem);
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+  letter-spacing: 1px;
+}
+
+.ws-table td {
+  color: var(--ws-white);
+  padding: 0.3vh 0.4vw;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.ws-table tr:nth-child(even) td {
+  background: var(--ws-table-alt);
+}
+
+.ws-table .col-city {
+  color: var(--ws-white);
+  font-weight: bold;
+}
+
+.ws-table .col-temp { text-align: right; }
+.ws-table .col-center { text-align: center; }
+
+/* ============================================================
+   DISPLAY: Almanac — fills 90%, large moon icons
+   ============================================================ */
+.display-almanac {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1.5vh;
+}
+
+.almanac-panel {
+  width: 90%;
+  max-width: 900px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--ws-panel-highlight);
+  border-radius: 4px;
+  padding: 1.5vh 2vw;
+}
+
+.almanac-panel-title {
+  color: var(--ws-yellow-bright);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  text-align: center;
+  margin-bottom: 1vh;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  letter-spacing: 2px;
+}
+
+/* Sun comparison row (two columns: today/tomorrow) */
+.sun-compare-row {
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+  margin-bottom: 0.5vh;
+}
+
+.sun-col {
+  text-align: center;
+  flex: 1;
+}
+
+.sun-col-day {
+  color: var(--ws-yellow-bright);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  margin-bottom: 0.3vh;
+}
+
+.sun-col-time {
+  color: var(--ws-white);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.sun-labels-row {
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+  border-top: 1px solid rgba(76,114,217,0.3);
+  padding-top: 0.5vh;
+}
+
+.sun-label-item {
+  color: var(--ws-white);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+  text-transform: uppercase;
+  flex: 1;
+  text-align: center;
+}
+
+.almanac-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5vh 0;
+  border-bottom: 1px solid rgba(76,114,217,0.3);
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+}
+
+.almanac-label {
+  color: var(--ws-white);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.almanac-value {
+  color: var(--ws-white);
+  text-align: right;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* Moon current row — LARGE moon icon */
+.moon-current-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  margin-bottom: 1.5vh;
+  padding-bottom: 1vh;
+  border-bottom: 1px solid rgba(76,114,217,0.3);
+}
+
+.moon-current-icon {
+  width: clamp(120px, 22vw, 250px);
+  height: clamp(120px, 22vw, 250px);
+}
+
+.moon-current-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.moon-current-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+}
+
+.moon-current-phase {
+  color: var(--ws-yellow-bright);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.moon-current-illum {
+  color: var(--ws-white);
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* Moon phases row */
+.moon-phases-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 1.5vw;
+}
+
+.moon-phase-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5vh;
+}
+
+.moon-phase-item svg {
+  width: clamp(70px, 12vw, 140px);
+  height: clamp(70px, 12vw, 140px);
+}
+
+.moon-phase-label {
+  color: var(--ws-yellow);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.moon-phase-date {
+  color: var(--ws-white);
+  font-size: clamp(1rem, 1.5vw, 1.4rem);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* ============================================================
+   DISPLAY: Extended Forecast — 70% fill per item
+   ============================================================ */
+.display-extended {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.extended-panels {
+  display: flex;
+  gap: 1vw;
+  flex: 1;
+  align-items: stretch;
+}
+
+.extended-panel {
+  flex: 1;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--ws-panel-highlight);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5vh 0.8vw;
+  gap: 1vh;
+}
+
+.extended-day-label {
+  color: var(--ws-yellow-bright);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.extended-panel .extended-icon {
+  width: clamp(80px, 14vw, 180px);
+  height: clamp(80px, 14vw, 180px);
+}
+
+.extended-panel .extended-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.extended-condition {
+  color: var(--ws-white);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  text-align: center;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  line-height: 1.3;
+}
+
+.extended-temps {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 0.5vh;
+  border-top: 1px solid rgba(76,114,217,0.3);
+}
+
+.extended-lo-label, .extended-hi-label {
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  color: var(--ws-white);
+  text-align: center;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.extended-lo-value {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--ws-cyan);
+  text-align: center;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.extended-hi-value {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--ws-white);
+  text-align: center;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+/* ============================================================
+   DISPLAY: Hourly Forecast
+   ============================================================ */
+.display-hourly {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   DISPLAY: Hourly Graph
+   ============================================================ */
+.display-hourly-graph {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.graph-legend {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.3vh 0;
+  border-bottom: 1px solid var(--ws-panel-highlight);
+  margin-bottom: 0.5vh;
+  flex-wrap: wrap;
+}
+
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+  color: var(--ws-white);
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+.graph-legend-color {
+  width: 16px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.graph-canvas-container {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.graph-canvas-container canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   DISPLAY: 36 Hour Forecast — fills panel, large text
+   ============================================================ */
+.display-36hour {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.forecast-text-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5vh;
+  padding: 1vh 0;
+}
+
+.forecast-text-line {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--ws-white);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.forecast-next-period {
+  margin-top: 1.5vh;
+  padding-top: 1vh;
+  border-top: 1px solid var(--ws-panel-highlight);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--ws-yellow);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+/* ============================================================
+   DISPLAY: Regional Forecast — fills panel, large text
+   ============================================================ */
+.display-regional-forecast {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-regional-forecast .forecast-text-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5vh;
+  padding: 1vh 0;
+}
+
+.display-regional-forecast .forecast-text-line {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--ws-white);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   DISPLAY: Travel Cities
+   ============================================================ */
+.display-travel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   DISPLAY: Local Radar — canvas-based radar
+   ============================================================ */
+.display-radar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-canvas-container {
+  width: 90%;
+  max-width: 700px;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.radar-canvas-container canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.radar-label {
+  color: var(--ws-yellow-bright);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1vh;
+}
+
+/* ============================================================
+   DISPLAY: Intro
+   ============================================================ */
+.display-intro {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+  animation: introFadeIn 1s ease-in-out;
+}
+
+@keyframes introFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.intro-logo-box {
+  background: linear-gradient(135deg, var(--ws-logo-blue), var(--ws-logo-light));
+  border: 3px solid var(--ws-white);
+  border-radius: 10px;
+  padding: 1.5vh 1.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 25px rgba(95,134,255,0.6);
+  animation: introPulse 2s ease-in-out infinite;
+}
+
+@keyframes introPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(95,134,255,0.6); }
+  50% { box-shadow: 0 0 40px rgba(95,134,255,0.9); }
+}
+
+.intro-logo-line1 {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  color: var(--ws-white);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+.intro-logo-line2 {
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  color: var(--ws-white);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+}
+
+.intro-tagline {
+  font-size: clamp(0.9rem, 1.8vw, 1.5rem);
+  color: var(--ws-yellow-bright);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  animation: introTaglineFade 3s ease-in-out infinite;
+}
+
+@keyframes introTaglineFade {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.intro-city {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  color: var(--ws-white);
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+  margin-top: 0.5vh;
+}
+
+/* ============================================================
+   Overlays
+   ============================================================ */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ws-panel-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.loading-box { text-align: center; }
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--ws-panel-highlight);
+  border-top: 3px solid var(--ws-yellow);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  color: var(--ws-yellow-bright);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px var(--ws-shadow);
+}
+
+.error-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,26,74,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+
+.error-overlay.hidden { display: none; }
+
+.error-box { text-align: center; max-width: 80%; }
+
+.error-icon {
+  font-size: 2.5rem;
+  color: #ff4444;
+  margin-bottom: 1rem;
+}
+
+.error-text {
+  font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+  color: #ff4444;
+  line-height: 1.6;
+  white-space: pre-line;
+  text-shadow: 1px 1px 3px var(--ws-shadow);
+}
+
+/* ============================================================
+   CRT Effects
+   ============================================================ */
+.crt-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.06) 0px,
+    rgba(0,0,0,0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanlineMove 0.1s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(3px); }
+}
+
+.crt-overlay::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0,0,0,0.35) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.crt-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  animation: noiseShift 0.2s steps(4) infinite;
+}
+
+@keyframes noiseShift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes crtFlicker {
+  0%   { opacity: 0.97; }
+  5%   { opacity: 0.99; }
+  10%  { opacity: 0.96; }
+  15%  { opacity: 0.98; }
+  20%  { opacity: 0.97; }
+  50%  { opacity: 0.98; }
+  80%  { opacity: 0.97; }
+  100% { opacity: 0.98; }
+}
+
+.ws4k-container {
+  animation: crtFlicker 0.15s infinite;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 768px) {
+  .ws4k-container {
+    background: linear-gradient(90deg,
+      var(--ws-frame-left) 0%,
+      var(--ws-frame-mid) 2vw,
+      transparent 4vw,
+      transparent calc(100% - 4vw),
+      var(--ws-frame-mid) calc(100% - 2vw),
+      var(--ws-frame-right) 100%
+    );
+  }
+
+  .ws4k-panel { margin: 0 3vw; }
+
+  .current-main-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .current-left { align-items: center; }
+
+  .current-right { padding-top: 0; }
+
+  .current-detail-row {
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+  }
+
+  .current-detail-label { min-width: 10vw; }
+
+  .extended-panels { flex-direction: column; }
+
+  .moon-phases-row { flex-wrap: wrap; }
+}
