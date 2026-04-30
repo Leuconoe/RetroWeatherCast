@@ -1,5 +1,6 @@
 # Environment
 .env
+/local/runtime-config.private.js
 
 # Playwright
 .playwright-mcp/
