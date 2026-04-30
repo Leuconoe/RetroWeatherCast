@@ -59,6 +59,12 @@
     ].forEach(function (key) {
       if (typeof config[key] === "string" && config[key].trim()) {
         nuxtPublicConfig[key] = config[key].trim();
+      } else if (
+        (key === "mapboxRegionalStyle" || key === "mapboxRadarStyle") &&
+        config[key] &&
+        typeof config[key] === "object"
+      ) {
+        nuxtPublicConfig[key] = config[key];
       }
     });
   }
